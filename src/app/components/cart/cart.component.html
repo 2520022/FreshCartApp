@@ -1,0 +1,41 @@
+@if ( cartData) {
+  <section class="bg-main-light p-2 rounded-2 w-75 mx-auto shadow my-4">
+    <h1 class=" fs-1">Shop Cart :</h1>
+    <h3 class="text-main fw-bold "> Total Cart Price :{{cartData.totalCartPrice | currency :'GBP'}}</h3>
+
+      <div class="container ">
+@for (item of cartData.products; track item.product._id) {
+  <div class="row border-3 border-bottom align-items-center">
+    <div class="col-2 p-2">
+<div class="item-img">
+<img [src]="item.product.imageCover"  class="w-100 rounded-3" [alt]="item.product.title">
+</div>
+    </div>
+    <div class="col-8 p-2">
+      <div class="image-details">
+    <h2 class="fw-bold fs-3">{{item.product.title}}</h2>
+    <h3 class="text-main fs-4">price:{{item.price | currency :'GBP'}}</h3>
+    <span> <i class="fa-regular fa-trash-can text-main me-2 cursor-pointer" (click)="removeItem(item.product._id)"></i> Remove</span>
+      </div>
+    </div>
+<div class="col-2 p-2">
+<div class="item-quan d-flex text-main fs-2 justify-content-between align-items-center">
+<span (click)="updateQuant(item.product._id,item.count +1)"><i class="fa-solid fa-circle-plus cursor-pointer "></i></span>
+<span class="text-black">{{item.count}}</span>
+@if (item.count>1) {
+  <span (click)="updateQuant(item.product._id,item.count -1)"><i class="fa-solid fa-circle-minus cursor-pointer "></i></span>
+}
+</div>
+</div>
+    </div>
+}
+
+
+    </div>
+@if (cartData.products.length) {
+<button     [routerLink]="['/checkout' , cartData._id]"   class="w-50 mx-auto d-block fw-bold p-2 btn-main my-3 ">Check Out</button>}
+
+<button (click)="deleteCart()"  routerLink="/home"  class="w-20  d-block fw-bold p-2 text-success border-success my-3 ms-auto">Clear Your Cart</button>
+
+</section>
+}

@@ -1,0 +1,26 @@
+<section class="bg-main-light p-2 rounded-2 w-75 mx-auto shadow my-3">
+  <h1 class=" fs-1">My Wish List :</h1>
+
+  <div class="container ">
+    @for (item of wishlistData; track item._id) {
+    <div class="row border-3 border-bottom align-items-center">
+      <div class="col-2 p-2">
+        <div class="item-img">
+          <img [src]="item.imageCover" class="w-100 rounded-3" [alt]="item.title">
+        </div>
+      </div>
+      <div class="col-8 p-2">
+        <div class="image-details">
+          <h3 class="fw-bold fs-4">{{item.title}}</h3>
+          <h4 class="text-main fs-6">price:{{item.price | currency :'GBP'}}</h4>
+          <span> <i class="fa-regular fa-trash-can text-main me-2 cursor-pointer" (click)="removeFavItem(item._id)"></i> Remove</span>
+
+        </div>
+      </div>
+      <div class="col-2 p-2">
+        <button (click)="addCartItem(item.id)" class="btn-main d-flex mx-auto">Add to cart +</button>
+      </div>
+    </div>
+    }
+  </div>
+</section>
